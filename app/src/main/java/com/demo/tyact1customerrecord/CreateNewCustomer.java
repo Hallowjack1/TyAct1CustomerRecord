@@ -26,7 +26,7 @@ public class CreateNewCustomer extends AppCompatActivity {
     private static String urlHost = "http://172.16.1.53/ancuin/InsertTrans.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
-    private static String fullname = "";
+    private static String StudentID = "";
     public static String Gender = "";
 
     @Override
@@ -34,64 +34,23 @@ public class CreateNewCustomer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_customer);
         btnQuery = (Button) findViewById(R.id.btnQuery);
-        edtitemcode = (EditText) findViewById(R.id.etID);
-        male = (RadioButton) findViewById(R.id.male);
-        female = (RadioButton) findViewById(R.id.female);
-        status = (Spinner) findViewById(R.id.status);
+        etID = findViewById(R.id.etID);
+        etlastname = findViewById(R.id.etLName);
+        etfirstname = findViewById(R.id.etFName);
+        etmiddlename = findViewById(R.id.etMName);
+        etcontact = findViewById(R.id.etContNum);
+        etcourse = findViewById(R.id.etCourse);
+        etyear = findViewById(R.id.etYear);
 
         //btn
         btnQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fullname = edtitemcode.getText().toString();
+                StudentID = etID.getText().toString();
                 new uploadDatatoURL().execute();
             }
         });
-        MaleandFemale = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RadioButton rdoList = (RadioButton) view;
-                switch (rdoList.getId()) {
-                    case R.id.male:
-                        Gender = "Male";
-                        break;
-                    case R.id.female:
-                        Gender = "Female";
-                        break;
-                }
-            }
-        };
-        male.setOnClickListener(MaleandFemale);
-        female.setOnClickListener(MaleandFemale);
 
-        //Spinner
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, StringStatus);
-        status.setAdapter(adapter);
-        status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int stats, long l) {
-                switch (stats) {
-                    case 0:
-                        StatusofUser = "Single";
-                        break;
-                    case 1:
-                        StatusofUser = "Married";
-                        break;
-                    case 2:
-                        StatusofUser = "Widow";
-                        break;
-                    case 3:
-                        StatusofUser = "Divorced";
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
     }
     private class uploadDatatoURL extends AsyncTask<String, String, String> {
         String cPOST = "", cPostSQL = "", cMessage = "Querying data...";
@@ -113,7 +72,7 @@ public class CreateNewCustomer extends AppCompatActivity {
             int nSuccess;
             try {
                 ContentValues cv = new ContentValues();
-                cPostSQL = " '" + fullname + "' , '" + Gender + "' , '" + StatusofUser + "' ";
+                cPostSQL = " '" + StudentID + "' , '" + Gender + "' , '" + StatusofUser + "' ";
                 cv.put("code", cPostSQL);
 
                 JSONObject json = jParser.makeHTTPRequest(urlHost, "POST", cv);
