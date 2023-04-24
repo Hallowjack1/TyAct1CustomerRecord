@@ -21,30 +21,20 @@ import org.json.JSONObject;
 
 public class CreateNewCustomer extends AppCompatActivity {
     private static Button btnQuery;
-    private static EditText edtitemcode;
+    private static EditText etID,etlastname,etfirstname,etmiddlename,etcontact,etcourse,etyear;
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://192.168.254.103/ancuin/InsertTrans.php";
+    private static String urlHost = "http://172.16.1.53/ancuin/InsertTrans.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
     private static String fullname = "";
     public static String Gender = "";
-
-    //Gender
-    RadioButton male, female;
-    View.OnClickListener MaleandFemale;
-
-    // Spinner
-    Spinner status;
-    public String StatusofUser = "";
-    String StringStatus[] = {"Single", "Married", "Widow","divorced"};
-    ArrayAdapter <String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_customer);
         btnQuery = (Button) findViewById(R.id.btnQuery);
-        edtitemcode = (EditText) findViewById(R.id.edtitemcode);
+        edtitemcode = (EditText) findViewById(R.id.etID);
         male = (RadioButton) findViewById(R.id.male);
         female = (RadioButton) findViewById(R.id.female);
         status = (Spinner) findViewById(R.id.status);
