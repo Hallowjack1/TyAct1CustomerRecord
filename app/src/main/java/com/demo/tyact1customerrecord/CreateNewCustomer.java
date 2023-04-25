@@ -23,11 +23,16 @@ public class CreateNewCustomer extends AppCompatActivity {
     private static Button btnQuery;
     private static EditText etID,etlastname,etfirstname,etmiddlename,etcontact,etcourse,etyear;
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://172.16.1.53/ancuin/InsertTrans.php";
+    private static String urlHost = "http://192.168.254.105/ancuin/InsertTrans.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
     private static String StudentID = "";
-    public static String Gender = "";
+    private static String LastName = "";
+    private static String FirstName = "";
+    private static String MiddleInitial = "";
+    private static String ContactNumber = "";
+    private static String Course = "";
+    private static String Year = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,12 @@ public class CreateNewCustomer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 StudentID = etID.getText().toString();
+                LastName = etlastname.getText().toString();
+                FirstName = etfirstname.getText().toString();
+                MiddleInitial = etmiddlename.getText().toString();
+                ContactNumber = etcontact.getText().toString();
+                Course = etcourse.getText().toString();
+                Year = etyear.getText().toString();
                 new uploadDatatoURL().execute();
             }
         });
@@ -72,7 +83,8 @@ public class CreateNewCustomer extends AppCompatActivity {
             int nSuccess;
             try {
                 ContentValues cv = new ContentValues();
-                cPostSQL = " '" + StudentID + "' , '" + Gender + "' , '" + StatusofUser + "' ";
+                cPostSQL = " '" + StudentID + "' , '" + LastName + "' , '" + FirstName + "' , '"
+                        + MiddleInitial + "' , '" + ContactNumber + "' , '" + Course + "' , '" + Year + "' ";
                 cv.put("code", cPostSQL);
 
                 JSONObject json = jParser.makeHTTPRequest(urlHost, "POST", cv);
